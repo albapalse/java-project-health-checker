@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Java generated files
+*.class
+target/
+build/
+out/
+
+# IDE files
+.idea/
+*.iml
+
+# Logs
+*.log
