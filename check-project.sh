@@ -14,5 +14,17 @@ if [ -z "$PROJECT_PATH" ]; then
     exit 1
 fi
 
+# Check whether the provided path exists.
+if [ ! -e "$PROJECT_PATH" ]; then
+    echo "Error: project path does not exist."
+    exit 1
+fi
+
+# Check whether the provided path is a directory.
+if [ ! -d "$PROJECT_PATH" ]; then
+    echo "Error: project path is not a directory."
+    exit 1
+fi
+
 # Display the directory that will be analyzed.
 echo "Analyzing project: $PROJECT_PATH"
