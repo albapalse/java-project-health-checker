@@ -28,3 +28,14 @@ fi
 
 # Display the directory that will be analyzed.
 echo "Analyzing project: $PROJECT_PATH"
+
+# Count Java source files recursively.
+JAVA_FILE_COUNT=$(find "$PROJECT_PATH" -type f -name "*.java" | wc -l | tr -d ' ')
+
+if [ "$JAVA_FILE_COUNT" -eq 0 ]; then
+    echo "No Java files found."
+else
+    echo "Java files found: $JAVA_FILE_COUNT"
+    find "$PROJECT_PATH" -type f -name "*.java"
+fi
+
