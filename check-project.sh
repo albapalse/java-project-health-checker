@@ -47,3 +47,13 @@ if git -C "$PROJECT_PATH" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
 else
     echo "Not a Git repository."
 fi
+
+# Search for TODO comments in Java source files.
+echo "TODO comments:"
+
+if grep -RIn --include="*.java" "TODO" "$PROJECT_PATH"; then
+    :
+else
+    echo "No TODO comments found."
+fi
+
