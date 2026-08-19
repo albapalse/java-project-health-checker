@@ -42,6 +42,8 @@ fi
 # Check whether the project is inside a Git repository.
 if git -C "$PROJECT_PATH" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     echo "Git repository detected."
+    echo "Git status:"
+    git -C "$PROJECT_PATH" status --short --branch
 else
     echo "Not a Git repository."
 fi
