@@ -36,6 +36,17 @@ else
     find "$PROJECT_PATH" -type f -name "*.java"
 fi
 
+# Detect the Java build system.
+if [ -f "$PROJECT_PATH/pom.xml" ]; then
+    echo "Build system: Maven"
+elif [ -f "$PROJECT_PATH/build.gradle" ]; then
+    echo "Build system: Gradle"
+elif [ -f "$PROJECT_PATH/build.gradle.kts" ]; then
+    echo "Build system: Gradle (Kotlin DSL)"
+else
+    echo "No supported build file found."
+fi
+
 # Check the Git repository.
 PROJECT_ABSOLUTE_PATH=$(cd "$PROJECT_PATH" && pwd -P)
 
