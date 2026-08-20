@@ -36,11 +36,19 @@ else
     find "$PROJECT_PATH" -type f -name "*.java"
 fi
 
-# Check if the directory is inside a Git repository.
+# Check the Git repository.
+PROJECT_ABSOLUTE_PATH=$(cd "$PROJECT_PATH" && pwd -P)
+
 if git -C "$PROJECT_PATH" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    echo "Git repository detected."
-    echo "Git status:"
-    git -C "$PROJECT_PATH" status --short --branch
+    GIT_ROOT=$(git -C "$PROJECT_PATH" rev-parse --show-toplevel)
+
+    if [ "$PROJECT_ABSOLUTE_PATH" = "$GIT_ROOT" ]; then
+        echo "Git repository root detected."
+        echo "Git status:"
+        git -C "$PROJECT_PATH" status --short --branch
+    else
+        echo "Directory is inside another Git repository."
+    fi
 else
     echo "Not a Git repository."
 fi
