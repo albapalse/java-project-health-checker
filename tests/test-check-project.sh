@@ -91,3 +91,47 @@ else
     echo "Output: $OUTPUT"
     exit 1
 fi
+
+# Check Maven build file detection.
+OUTPUT=$(./check-project.sh tests/fixtures/maven-project 2>&1)
+
+if echo "$OUTPUT" | grep -q "Build system: Maven"; then
+    echo "PASS: Maven build detection"
+else
+    echo "FAIL: Maven build detection"
+    echo "Output: $OUTPUT"
+    exit 1
+fi
+
+# Check Gradle build file detection.
+OUTPUT=$(./check-project.sh tests/fixtures/gradle-project 2>&1)
+
+if echo "$OUTPUT" | grep -q "Build system: Gradle"; then
+    echo "PASS: Gradle build detection"
+else
+    echo "FAIL: Gradle build detection"
+    echo "Output: $OUTPUT"
+    exit 1
+fi
+
+# Check Gradle Kotlin DSL build file detection.
+OUTPUT=$(./check-project.sh tests/fixtures/gradle-kotlin-project 2>&1)
+
+if echo "$OUTPUT" | grep -q "Build system: Gradle (Kotlin DSL)"; then
+    echo "PASS: Gradle Kotlin build detection"
+else
+    echo "FAIL: Gradle Kotlin build detection"
+    echo "Output: $OUTPUT"
+    exit 1
+fi
+
+# Check the message when no supported build file exists.
+OUTPUT=$(./check-project.sh tests/fixtures/no-build-project 2>&1)
+
+if echo "$OUTPUT" | grep -q "No supported build file found."; then
+    echo "PASS: missing build file"
+else
+    echo "FAIL: missing build file"
+    echo "Output: $OUTPUT"
+    exit 1
+fi
