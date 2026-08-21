@@ -1,0 +1,24 @@
+name: Automated tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Check Bash syntax
+        run: |
+          bash -n check-project.sh
+          bash -n tests/test-check-project.sh
+
+      - name: Run automated tests
+        run: ./tests/test-check-project.sh
